@@ -17,32 +17,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
   revealElements.forEach(el => revealObserver.observe(el));
 
-  // Mobile Hamburger Toggle
-  const menuToggle = document.querySelector('.menu-toggle');
-  const navLinks = document.querySelector('.nav-links');
-  
-  if (menuToggle && navLinks) {
-    menuToggle.addEventListener('click', () => {
-      menuToggle.classList.toggle('active');
-      navLinks.classList.toggle('active');
-    });
+  // Hero Carousel Logic (Automatic and Dot indicator controls)
+  const heroSlides = document.querySelectorAll('.hero-slide');
+  const heroDots = document.querySelectorAll('.hero-dots .dot');
+  let currentHeroSlide = 0;
 
-    // Close menu when clicking on any link
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        menuToggle.classList.remove('active');
-        navLinks.classList.remove('active');
-      });
+  function showHeroSlide(index) {
+    if (heroSlides.length === 0) return;
+    heroSlides.forEach(slide => slide.classList.remove('active'));
+    heroDots.forEach(dot => dot.classList.remove('active'));
+    
+    currentHeroSlide = (index + heroSlides.length) % heroSlides.length;
+    
+    heroSlides[currentHeroSlide].classList.add('active');
+    heroDots[currentHeroSlide].classList.add('active');
+  }
+
+  if (heroSlides.length > 0) {
+    heroDots.forEach((dot, index) => {
+      dot.addEventListener('click', () => showHeroSlide(index));
     });
+    
+    // Auto-advance hero carousel every 5 seconds
+    setInterval(() => {
+      showHeroSlide(currentHeroSlide + 1);
+    }, 5000);
   }
 
   // Product Carousel Logic (Arrow navigation controls)
   const prevBtn = document.querySelector('.nav-btn.prev');
   const nextBtn = document.querySelector('.nav-btn.next');
   const card = document.querySelector('.product-card');
-  const productImage = card?.querySelector('.card-image-wrapper img');
-  const productTitle = card?.querySelector('.card-content h3');
-  const productDesc = card?.querySelector('.card-content p');
+  const productImage = card.querySelector('.card-image-wrapper img');
+  const productTitle = card.querySelector('.card-content h3');
+  const productDesc = card.querySelector('.card-content p');
 
   const products = [
     {
@@ -60,8 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentProductIndex = 0;
 
   function updateProduct(index) {
-    if (!card || !productImage || !productTitle || !productDesc) return;
-    
     currentProductIndex = (index + products.length) % products.length;
     const currentProduct = products[currentProductIndex];
 

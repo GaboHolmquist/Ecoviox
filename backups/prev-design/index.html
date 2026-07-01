@@ -7,7 +7,7 @@
   <meta name="description" content="Ecoviox combina tecnología de nivel médico para crear ambientes más limpios, saludables y agradables.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -18,11 +18,7 @@
       <a href="#productos">Productos</a>
       <a href="#contacto">Contacto</a>
     </div>
-    <button class="menu-toggle" aria-label="Abrir menú">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    <button class="btn btn-outline">+ Info</button>
   </nav>
 
   <header class="hero" id="home">
@@ -36,8 +32,23 @@
         </div>
       </div>
       <div class="hero-right">
-        <div class="hero-image-wrapper glass ornament-only">
-          <img src="assets/images/evo_600.png" alt="Ecoviox Evo 600" class="hero-device">
+        <div class="hero-carousel glass">
+          <div class="hero-slides">
+            <div class="hero-slide active">
+              <img src="assets/images/evo_600.png" alt="Ecoviox Evo 600" class="hero-device">
+              <div class="slide-caption">EVO 600</div>
+            </div>
+            <div class="hero-slide">
+              <img src="assets/images/evo_450.png" alt="Ecoviox Evo 450" class="hero-device">
+              <div class="slide-caption">EVO 450</div>
+            </div>
+          </div>
+          <div class="hero-carousel-controls">
+            <div class="hero-dots">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -168,52 +179,28 @@
           </div>
           <h3>Bienestar para quienes más importan</h3>
           <p>Respirar un aire de mejor calidad contribuye a crear espacios más agradables para vivir, trabajar y compartir.</p>
-        </div>
       </div>
     </div>
   </section>
 
   <hr class="section-divider">
 
-  <section class="contact-section reveal" id="contacto">
-    <div class="container contact-container">
-      <h2 class="section-title center">Contáctanos</h2>
-      <form class="contact-form glass">
-        <div class="form-group">
-          <label for="name">Nombre</label>
-          <input type="text" id="name" name="name" required placeholder="Tu nombre">
-        </div>
-        <div class="form-group">
-          <label for="email">Correo Electrónico</label>
-          <input type="email" id="email" name="email" required placeholder="tu@email.com">
-        </div>
-        <div class="form-group">
-          <label for="message">Mensaje</label>
-          <textarea id="message" name="message" required placeholder="Escribe tu mensaje aquí..." rows="5"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
-      </form>
-    </div>
-  </section>
-
-  <hr class="section-divider">
-
-  <footer class="footer reveal">
+  <footer class="footer reveal" id="contacto">
     <div class="container">
       <div class="footer-cta">
         <h2 class="footer-title">¿Quieres conocer<br>más de <span class="brand-font">Ecoviox</span>?</h2>
         <div class="footer-actions">
-          <a href="#contacto" class="btn btn-primary">Solicitar información</a>
-          <a href="#tecnologia" class="btn btn-primary">Conocer tecnología</a>
+          <a href="#" class="btn btn-primary">Solicitar información</a>
+          <a href="#" class="btn btn-primary">Conocer tecnología</a>
         </div>
       </div>
       <hr class="footer-divider">
       <div class="footer-bottom">
         <div class="footer-logo">Ecoviox</div>
         <div class="footer-links">
-          <a href="#home">Home</a>
-          <a href="#productos">Productos</a>
-          <a href="#contacto">Contacto</a>
+          <a href="#">Home</a>
+          <a href="#">Productos</a>
+          <a href="#">Contacto</a>
         </div>
         <div class="social-icons">
           <a href="#" aria-label="Facebook">FB</a>
