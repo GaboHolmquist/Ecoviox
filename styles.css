@@ -338,7 +338,7 @@ h1, h2, h3, .brand-font {
   margin-bottom: 0.8rem;
   font-size: 1.05rem;
   color: var(--text-secondary);
-  text-align: justify;
+  text-align: left;
 }
 
 .about-links {
@@ -350,7 +350,7 @@ h1, h2, h3, .brand-font {
 
 .product-carousel-wrapper {
   width: 100%;
-  padding: 0 2rem; /* Add horizontal space for absolute arrows */
+  padding: 0 1rem;
 }
 
 .product-carousel-container {
@@ -368,13 +368,13 @@ h1, h2, h3, .brand-font {
   top: 50%;
   transform: translateY(-50%);
   z-index: 10;
-  width: 44px;
-  height: 44px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background: var(--primary-btn);
   color: white;
   border: none;
-  font-size: 1.1rem;
+  font-size: 1rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -389,16 +389,16 @@ h1, h2, h3, .brand-font {
 }
 
 .nav-btn.prev {
-  left: -22px;
+  left: -10px;
 }
 
 .nav-btn.next {
-  right: -22px;
+  right: -10px;
 }
 
 .product-card {
   width: 100%;
-  padding: 2rem;
+  padding: 1.5rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -439,15 +439,15 @@ h1, h2, h3, .brand-font {
 
 .card-actions {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
   width: 100%;
 }
 
 .card-actions .btn {
   flex: 1;
   text-align: center;
-  padding: 0.8rem 1rem;
-  font-size: 0.9rem;
+  padding: 0.8rem 0.4rem;
+  font-size: 0.85rem;
 }
 
 /* Como Funciona */
@@ -707,6 +707,37 @@ h1, h2, h3, .brand-font {
   
   .about-links {
     justify-content: flex-start;
+  }
+  
+  .about-text p {
+    text-align: justify;
+  }
+
+  .product-carousel-wrapper {
+    padding: 0 2rem;
+  }
+
+  .nav-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
+
+  .nav-btn.prev {
+    left: -22px;
+  }
+
+  .nav-btn.next {
+    right: -22px;
+  }
+
+  .card-actions {
+    gap: 1rem;
+  }
+
+  .card-actions .btn {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.95rem;
   }
   
   .product-card {
