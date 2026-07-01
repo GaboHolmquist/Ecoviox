@@ -366,7 +366,7 @@ h1, h2, h3, .brand-font {
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 550px;
+  max-width: 480px;
   margin: 0 auto;
 }
 
@@ -727,7 +727,7 @@ h1, h2, h3, .brand-font {
   .about-carousel-container {
     grid-template-columns: 1fr 1.1fr;
     text-align: left;
-    gap: 5rem;
+    gap: 3rem;
   }
 
   .product-carousel-wrapper {
