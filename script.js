@@ -232,4 +232,60 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
+
+  // Contact Form Submission Handler (Google Sheets Web App Integration)
+  const contactForm = document.querySelector('.contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.textContent;
+      submitBtn.textContent = 'Enviando...';
+      submitBtn.disabled = true;
+
+      const formData = new FormData(contactForm);
+      const data = {
+        nombre: formData.get('name'),
+        email: formData.get('email'),
+        mensaje: formData.get('message'),
+        fecha: new Date().toLocaleString()
+      };
+
+      // CONFIGURACIÓN: Reemplaza esta URL con tu enlace de Google Apps Script cuando lo crees
+      const GOOGLE_SCRIPT_URL = 'DEJA_TU_URL_DE_GOOGLE_APPS_SCRIPT_AQUI';
+
+      if (GOOGLE_SCRIPT_URL === 'DEJA_TU_URL_DE_GOOGLE_APPS_SCRIPT_AQUI') {
+        alert('Por favor, configura tu URL de Google Apps Script en el archivo script.js para procesar el formulario.');
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+        return;
+      }
+
+      fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors', // Omit CORS errors on client side
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(() => {
+        // Show elegant success animation inside the glass form
+        contactForm.innerHTML = `
+          <div class="success-message" style="text-align: center; padding: 2rem 0; animation: fadeIn 0.5s ease-out;">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#0071e3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 1.2rem;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            <h3 style="font-family: var(--font-heading); font-size: 1.6rem; margin-bottom: 0.5rem; font-weight: bold;">¡Mensaje Enviado!</h3>
+            <p style="color: var(--text-secondary); font-size: 1rem;">Hemos recibido tus datos correctamente y nos contactaremos contigo a la brevedad.</p>
+          </div>
+        `;
+      })
+      .catch(error => {
+        console.error('Error al enviar el formulario:', error);
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+        alert('Hubo un error al procesar el envío. Por favor, intenta nuevamente.');
+      });
+    });
+  }
 });
