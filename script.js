@@ -43,20 +43,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const productImage = card?.querySelector('.card-image-wrapper img');
   const productTitle = card?.querySelector('.card-content h3');
   const productPrice = card?.querySelector('.card-price');
-  const productDesc = card?.querySelector('.card-content p');
+  const productDesc = card?.querySelector('.card-desc');
 
   const products = [
     {
       title: "Evo 600",
       desc: "Diseñado para operar de forma continua y silenciosa en clínicas, oficinas y hogares, sin interrumpir la actividad del espacio.",
       image: "assets/images/evo_600.png",
-      price: "Precio: $590.000 CLP"
+      price: "Precio: $650.000 CLP"
     },
     {
       title: "Evo 450",
       desc: "El modelo Evo 450 es ideal para espacios medianos, ofreciendo el mismo nivel de filtración médica y eliminación microbiológica en un tamaño más compacto.",
       image: "assets/images/evo_450.png",
-      price: "Precio: $450.000 CLP"
+      price: "Precio: $420.000 CLP"
     }
   ];
 
