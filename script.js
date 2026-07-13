@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       // CONFIGURACIÓN: Reemplaza esta URL con tu enlace de Google Apps Script cuando lo crees
-      const GOOGLE_SCRIPT_URL = 'DEJA_TU_URL_DE_GOOGLE_APPS_SCRIPT_AQUI';
+      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzG7s4ENteIIThLM0UwFxZ7yfe0ht7lXpFTu3uQvq_05-joJ7sfI47UEN44ahjVv3Sq/exec';
 
       if (GOOGLE_SCRIPT_URL === 'DEJA_TU_URL_DE_GOOGLE_APPS_SCRIPT_AQUI') {
         alert('Por favor, configura tu URL de Google Apps Script en el archivo script.js para procesar el formulario.');
