@@ -247,7 +247,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const formData = new FormData(contactForm);
       const data = {
         nombre: formData.get('name'),
-        email: formData.get('email'),
+        mail: formData.get('email'),
+        telefono: formData.get('phone'),
         mensaje: formData.get('message'),
         fecha: new Date().toLocaleString()
       };
