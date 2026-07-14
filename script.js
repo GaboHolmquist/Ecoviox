@@ -233,7 +233,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Contact Form Submission Handler (Google Sheets Web App Integration)
+  // Sanitización de entradas para prevenir inyecciones y código malicioso
+  function sanitizeInput(str) {
+    if (typeof str !== 'string') return '';
+    let clean = str.trim();
+    // Eliminar etiquetas HTML completas
+    clean = clean.replace(/<[^>]*>/g, '');
+    // Prevenir inyección de fórmulas en Google Sheets (CSV Injection)
+    // Si un campo empieza con =, +, -, o @, le anteponemos una comilla simple para forzarlo como texto
+    if (/^[=\+\-@]/.test(clean)) {
+      clean = "'" + clean;
+    }
+    return clean;
+  }
+
+  // Contact Form Submission Handler (Google Sheets Web App Integration + Security)
   const contactForm = document.querySelector('.contact-form');
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
@@ -241,15 +255,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const submitBtn = contactForm.querySelector('button[type="submit"]');
       const originalBtnText = submitBtn.textContent;
+
+      const formData = new FormData(contactForm);
+
+      // 1. Detección de Spam (Honeypot)
+      // Si el bot llenó el campo oculto, simulamos éxito en la interfaz pero no enviamos nada al servidor
+      if (formData.get('website_verification')) {
+        console.warn('Spam detectado mediante Honeypot.');
+        showSuccessState();
+        return;
+      }
+
+      // 2. Control de Tasa (Rate Limiting)
+      // Bloquear envíos múltiples en menos de 60 segundos
+      const lastSubmission = localStorage.getItem('last_submission_time');
+      const now = Date.now();
+      if (lastSubmission && (now - parseInt(lastSubmission)) < 60000) {
+        const remainingSeconds = Math.ceil((60000 - (now - parseInt(lastSubmission))) / 1000);
+        alert(`Por seguridad, debes esperar ${remainingSeconds} segundos antes de enviar otro mensaje.`);
+        return;
+      }
+
+      // Deshabilitar botón
       submitBtn.textContent = 'Enviando...';
       submitBtn.disabled = true;
 
-      const formData = new FormData(contactForm);
+      // 3. Validación y Sanitización de Datos
+      const rawPhone = formData.get('phone');
+      // Regex para número de teléfono internacional/local básico: dígitos, espacios, paréntesis, guiones y un opcional '+' inicial.
+      const phoneRegex = /^\+?[0-9\s\-()]{7,20}$/;
+      if (!phoneRegex.test(rawPhone)) {
+        alert('Por favor, ingresa un número de teléfono válido.');
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+        return;
+      }
+
       const data = {
-        nombre: formData.get('name'),
-        mail: formData.get('email'),
-        telefono: formData.get('phone'),
-        mensaje: formData.get('message'),
+        nombre: sanitizeInput(formData.get('name')),
+        mail: sanitizeInput(formData.get('email')),
+        telefono: sanitizeInput(rawPhone),
+        mensaje: sanitizeInput(formData.get('message')),
         fecha: new Date().toLocaleString()
       };
 
@@ -272,6 +318,18 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify(data)
       })
       .then(() => {
+        // Registrar tiempo de envío exitoso
+        localStorage.setItem('last_submission_time', Date.now().toString());
+        showSuccessState();
+      })
+      .catch(error => {
+        console.error('Error al enviar el formulario:', error);
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+        alert('Hubo un error al procesar el envío. Por favor, intenta nuevamente.');
+      });
+
+      function showSuccessState() {
         // Show elegant success animation inside the glass form
         contactForm.innerHTML = `
           <div class="success-message" style="text-align: center; padding: 2rem 0; animation: fadeIn 0.5s ease-out;">
@@ -280,13 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <p style="color: var(--text-secondary); font-size: 1rem;">Hemos recibido tus datos correctamente y nos contactaremos contigo a la brevedad.</p>
           </div>
         `;
-      })
-      .catch(error => {
-        console.error('Error al enviar el formulario:', error);
-        submitBtn.textContent = originalBtnText;
-        submitBtn.disabled = false;
-        alert('Hubo un error al procesar el envío. Por favor, intenta nuevamente.');
-      });
+      }
     });
   }
 });
