@@ -335,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="success-message" style="text-align: center; padding: 2rem 0; animation: fadeIn 0.5s ease-out;">
             <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#0071e3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 1.2rem;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
             <h3 style="font-family: var(--font-heading); font-size: 1.6rem; margin-bottom: 0.5rem; font-weight: bold;">¡Mensaje Enviado!</h3>
-            <p style="color: var(--text-secondary); font-size: 1rem;">Hemos recibido tus datos correctamente y nos contactaremos contigo a la brevedad.</p>
+            <p style="color: var(--text-secondary); font-size: 1rem;">Un ejecutivo de ventas se pondrá en contacto contigo.</p>
           </div>
         `;
       }
